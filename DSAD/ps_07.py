@@ -90,7 +90,7 @@ def nodeOperation(rootNode: EmpNode, operation: str, params={}):
 
             # if the employee id of the root matches 
             # with the node provided in params
-            if root.empId == params['increase_node']:
+            if int(root.empId) == int(params['increase_node']):
 
                 # increase the counter and set increase_count to True
                 root.attctr += 1
@@ -105,7 +105,7 @@ def nodeOperation(rootNode: EmpNode, operation: str, params={}):
 
             # if the employee id of the root matches 
             # with the node provided in params
-            if root.empId == params['search']:
+            if int(root.empId) == int(params['search']):
 
                 # set the search key with root value
                 out['search'] = root
@@ -125,12 +125,12 @@ def nodeOperation(rootNode: EmpNode, operation: str, params={}):
             # here we don't break because 
             # we need to traverse through the whole list
 
-        # if
+        # check how many employees are
         if operation == 'freq_visit':
             if root.attctr >= params['freq']:
                 out['nodes'].append(root)
         if operation == 'range':
-            if ((root.empId >= params['low']) and (root.empId < params['high'])):
+            if ((int(root.empId) >= params['low']) and (int(root.empId) < params['high'])):
                 out['nodes'].append(root)
         
         if root.left:
@@ -139,8 +139,7 @@ def nodeOperation(rootNode: EmpNode, operation: str, params={}):
             tempQ.put(root.right)
     return out
 
-
-if __name__=="__main__":
+if __name__ == "__main__":
     inp = open('./inputPS07.txt', 'r')
     instructions = str(inp.read()).split('\n')
     inp.close()
@@ -150,7 +149,7 @@ if __name__=="__main__":
     for instruction in instructions:
         pre = instruction.split(':')[0]
         if pre not in ['inFreezer', 'checkEmp', 'freqVisit', 'range', '']:
-            pre = int(pre)
+            # pre = int(pre)
             if not bt:
                 bt = EmpNode(pre)
             else:
